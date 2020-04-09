@@ -1,0 +1,33 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+    <head>
+        <meta charset="UTF-8">
+        <script src="https://secure.aadcdn.microsoftonline-p.com/lib/1.0.14/js/adal.min.js"></script>
+        <script src="../aad.js"></script>
+
+    </head>
+    <body>
+        <script>
+          var user = aad.authenticate('<APP_ID>',window.location,'usaa.com');
+          if(user) {
+            aad.queryUserInfo('https://graph.microsoft.com/v1.0/me/manager',
+			function(response){
+				//on success
+				if(response || response.length){
+					console.log(JSON.stringify(JSON.parse(response), null, '  '));
+				}
+			},
+			function(response){
+				//on fail
+				if(response || response.length){
+					console.log(JSON.stringify(JSON.parse(response), null, '  '));
+				}
+			});
+          }
+          else
+          {
+             console.log("user is undefined");
+          }
+        </script>
+    </body>
+</html>
